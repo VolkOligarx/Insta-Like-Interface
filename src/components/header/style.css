@@ -1,0 +1,39 @@
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: 10vw;
+}
+
+.buttonBlock {
+    width: 12vw;
+}
+
+.buttonLng {
+    border: none;
+    transition: all 0.5s;
+}
+
+.buttonLng::before {
+    content: attr(text);
+}
+
+.buttonLng:hover {
+    transform: scale(0.95);
+    color: rgb(29, 29, 29);
+}
+
+.buttonLng:hover::before {
+    content: attr(hover-text);
+}
+
+
+.buttonEnter {
+    border: none;
+    transition: all 0.5s;
+}
+
+.buttonEnter:hover {
+    transform: scale(0.95);
+    color: rgb(29, 29, 29);
+}
