@@ -1,6 +1,7 @@
 import "./style.css"
-import { getCookie, setCookie, deleteCookie } from "../../functions"
+import { setCookie, deleteCookie } from "../../functions"
 import { useEffect, useState } from "react"
+import { loginApi, registerApi } from "../../api's"
 
 export const Login = (props) => {
     const [blockVisible, setBlockVisible] = useState(props.login)
@@ -25,12 +26,12 @@ export const Login = (props) => {
         else if (loginButton === 'Вернуться') {
 
             const user = {
-                "login": {login},
-                "name": {name},
-                "password": {password}
+                "login": login,
+                "name": name,
+                "password": password
             }
 
-            fetch('https://webdev-hw-api.vercel.app/api/user', {
+            fetch(registerApi, {
                 method: 'POST',
                 body: JSON.stringify(user)
             })
@@ -47,12 +48,16 @@ export const Login = (props) => {
             .then((data) => {
                 console.log(data.user);
                 deleteCookie('login')
-                setCookie('login', data.user.login.login, {secure: true, 'max-age': 3600})
+                setCookie('login', data.user.login, {secure: true, 'max-age': 3600})
                 deleteCookie('name')
-                setCookie('name' , data.user.name.name, {secure: true, 'max-age': 3600})
+                setCookie('name' , data.user.name, {secure: true, 'max-age': 3600})
                 deleteCookie('password')
-                setCookie('password' , data.user.password.password, {secure: true, 'max-age': 3600})
+                setCookie('password' , data.user.password, {secure: true, 'max-age': 3600})
+                deleteCookie('token')
+                setCookie('token' , data.user.token, {secure: true, 'max-age': 3600})
                 setBlockVisible('none')
+                deleteCookie('_id')
+                setCookie('_id' , data.user._id, {secure: true, 'max-age': 3600})
             })
             .catch((e) => {
                 console.log(e.response);
@@ -70,10 +75,10 @@ export const Login = (props) => {
 
         else if (loginButton === 'Вход') {
             let user = {
-                "login": {login},
-                "password": {password}
+                "login": login,
+                "password": password
             }
-            fetch('https://webdev-hw-api.vercel.app/api/user/login', {
+            fetch(loginApi, {
                 method: 'POST',
                 body: JSON.stringify(user)
             })
@@ -90,12 +95,16 @@ export const Login = (props) => {
             .then((data) => {
                 console.log(data);
                 deleteCookie('login')
-                setCookie('login', data.user.login.login, {secure: true, 'max-age': 3600})
+                setCookie('login', data.user.login, {secure: true, 'max-age': 3600})
                 deleteCookie('name')
-                setCookie('name' , data.user.name.name, {secure: true, 'max-age': 3600})
+                setCookie('name' , data.user.name, {secure: true, 'max-age': 3600})
                 deleteCookie('password')
-                setCookie('password' , data.user.password.password, {secure: true, 'max-age': 3600})
+                setCookie('password' , data.user.password, {secure: true, 'max-age': 3600})
                 setBlockVisible('none')
+                deleteCookie('token')
+                setCookie('token' , data.user.token, {secure: true, 'max-age': 3600})
+                deleteCookie('_id')
+                setCookie('_id' , data.user._id, {secure: true, 'max-age': 3600})
             })
             .catch((e) => {
                 console.log(e.response)

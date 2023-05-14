@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react"
+import { allPostsApi } from "../../api's"
+import UserContent from "../userContent/userContent"
 import "./style.css"
 
 export const UserBlock = () => {
     const [posts, setPosts] = useState([])
 
     useEffect(() => {
-        fetch('https://webdev-hw-api.vercel.app/api/v1/prod/instapro')
+        fetch(allPostsApi)
         .then((response) => {
             if (response.status >= 200 && response.status < 300) {
                 return response.json()  
@@ -25,22 +27,15 @@ export const UserBlock = () => {
         })
     },[])
 
-
     return (
         <div className="main">
             {
                 posts.map((post) => {
                     const created = post.createdAt.split('').splice(0,10).join('')
 
+                
                     return (
-                        <div key={post.id}>
-                            <img className="postImage" src={post.imageUrl} alt='postImage'></img> 
-                            <div className="postText">
-                                <p>Создан: {created}</p>
-                                <p>Описание: {post.description}</p>
-                                <img src="./img/like.png" className="like" alt="like"></img>
-                            </div>
-                        </div>
+                        <UserContent key={post.id} created={created} id={post.id} imageUrl={post.imageUrl} description={post.description} likes={post.likes}></UserContent>                    
                     )
                 })
             }
