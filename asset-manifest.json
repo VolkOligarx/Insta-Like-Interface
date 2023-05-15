@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/Insta-Like-Interface/static/css/main.25ad7b32.css",
+    "main.js": "/Insta-Like-Interface/static/js/main.e9485cc8.js",
+    "index.html": "/Insta-Like-Interface/index.html",
+    "main.25ad7b32.css.map": "/Insta-Like-Interface/static/css/main.25ad7b32.css.map",
+    "main.e9485cc8.js.map": "/Insta-Like-Interface/static/js/main.e9485cc8.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.25ad7b32.css",
+    "static/js/main.e9485cc8.js"
+  ]
+}
