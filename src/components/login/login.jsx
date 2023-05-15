@@ -57,11 +57,11 @@ export const Login = (props) => {
 
     return (
         <div style={{display: blockVisible ? 'flex' : 'none'}} className="login">
-            <input placeholder={props.language ? 'Логин' : 'Login'} value={login} onChange={(e) => {setLogin(e.target.value)}} type='text'/>
-            <input placeholder={props.language ? 'Пароль' : 'Password'} value={password} onChange={(e) => {setPassword(e.target.value)}} type='password'/>
-            <input placeholder={props.language ? 'Имя' : 'Name'} style={{display: regInput ? 'flex' : 'none'}} value={name} onChange={(e) => {setName(e.target.value)}} type='text'/>
-            <button onClick={()=>log()}>{props.language ? (loginButton ? 'Войти' : 'Вернуться') : (loginButton ? 'Enter' : 'Go back')}</button>
-            <button onClick={()=>reg()}>{props.language ? (regButton ? 'Регистрация' : 'Зарегистрироваться') : (regButton ? 'Registration' : 'Register')}</button>
+            <input placeholder={props.language === 'rus' ? 'Логин' : 'Login'} value={login} onChange={(e) => {setLogin(e.target.value)}} type='text'/>
+            <input placeholder={props.language === 'rus' ? 'Пароль' : 'Password'} value={password} onChange={(e) => {setPassword(e.target.value)}} type='password'/>
+            <input placeholder={props.language === 'rus' ? 'Имя' : 'Name'} style={{display: regInput ? 'flex' : 'none'}} value={name} onChange={(e) => {setName(e.target.value)}} type='text'/>
+            <button onClick={()=>log()}>{props.language === 'rus' ? (loginButton ? 'Войти' : 'Вернуться') : (loginButton ? 'Enter' : 'Go back')}</button>
+            <button onClick={()=>reg()}>{props.language === 'rus' ? (regButton ? 'Регистрация' : 'Зарегистрироваться') : (regButton ? 'Registration' : 'Register')}</button>
         </div>
     )
 }

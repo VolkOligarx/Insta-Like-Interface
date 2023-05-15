@@ -37,10 +37,10 @@ export const UserContent = (props) => {
         <div key={props.id}>
             <img className="post-image" src={props.imageUrl} alt='propsImage'></img> 
             <div className="post-text">
-                <p>{props.language ? 'Создан:' : 'Created:'} {props.created}</p>
-                <p>{props.language ? 'Описание:' : 'Description:'} {props.description}</p>
+                <p>{props.language === 'rus' ? 'Создан:' : 'Created:'} {props.created}</p>
+                <p>{props.language === 'rus' ? 'Описание:' : 'Description:'} {props.description}</p>
                 <div style={{display: 'flex', alignItems: 'center', gap: '10px'}}>
-                    <p>{props.language ? 'Лайков:' : 'Likes:'} {props.likes.length + likeCount}</p>
+                    <p>{props.language === 'rus' ? 'Лайков:' : 'Likes:'} {props.likes.length + likeCount}</p>
                     <img onClick={() => {changeLike()}} src={isLiked ? './img/like.png' : './img/liked.png'} className="like" alt="like"></img>
                 </div>
             </div>
