@@ -2,38 +2,38 @@
     display: flex;
     align-items: center;
     justify-content: space-around;
-    gap: 10vw;
+    gap: 5vw;
 }
 
-.buttonBlock {
-    width: 12vw;
+.button-block {
+    width: 17vw;
 }
 
-.buttonLng {
+.button-lng {
     border: none;
     transition: all 0.5s;
 }
 
-.buttonLng::before {
+.button-lng::before {
     content: attr(text);
 }
 
-.buttonLng:hover {
+.button-lng:hover {
     transform: scale(0.95);
     color: rgb(29, 29, 29);
 }
 
-.buttonLng:hover::before {
+.button-lng:hover::before {
     content: attr(hover-text);
 }
 
 
-.buttonEnter {
+.button-enter {
     border: none;
     transition: all 0.5s;
 }
 
-.buttonEnter:hover {
+.button-enter:hover {
     transform: scale(0.95);
     color: rgb(29, 29, 29);
 }
