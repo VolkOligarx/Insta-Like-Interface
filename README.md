@@ -8,6 +8,8 @@
 
 ## Launching ===>
 
-Type in console **"npm install"**, then **"npm start"**
+### You can check on pages: https://volkoligarx.github.io/Insta-Like-Interface/
+
+#### Or type in console **"npm install"**, then **"npm start"**
 
 12.05.2023
