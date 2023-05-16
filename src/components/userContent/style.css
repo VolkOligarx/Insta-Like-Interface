@@ -1,10 +1,10 @@
-.postText {
+.post-text {
     display: flex;
     align-items: center;
     justify-content: space-around;
 }
 
-.postImage {
+.post-image {
     max-width: 75vw;
     max-height: 50vh;
 }

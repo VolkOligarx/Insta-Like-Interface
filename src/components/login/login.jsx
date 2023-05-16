@@ -1,29 +1,28 @@
 import "./style.css"
-import { setCookie, deleteCookie } from "../../functions"
 import { useEffect, useState } from "react"
-import { loginApi, registerApi } from "../../api's"
+import { loginApi, registerApi } from "../../apis"
 
 export const Login = (props) => {
     const [blockVisible, setBlockVisible] = useState(props.login)
     const [login, setLogin] = useState('')
     const [password, setPassword] = useState('')
     const [name, setName] = useState('')
-    const [regButton, setRegButton] = useState('Регистрация')
-    const [loginButton, setLoginButton] = useState('Вход')
-    const [regInput, setRegInput] = useState('none')
+    const [regButton, setRegButton] = useState(true)
+    const [loginButton, setLoginButton] = useState(true)
+    const [regInput, setRegInput] = useState(false)
 
     useEffect(() => {
         setBlockVisible(props.login)
     },[props.login])
 
-    const Reg = () => {
-        if (loginButton === 'Вход') {
-            setRegButton('Зарегистрироваться')
-            setLoginButton('Вернуться')
-            setRegInput('flex')
+    const reg = () => {
+        if (loginButton === true) {
+            setRegButton(false)
+            setLoginButton(false)
+            setRegInput(true)
         }
 
-        else if (loginButton === 'Вернуться') {
+        else if (loginButton === false) {
 
             const user = {
                 "login": login,
@@ -31,95 +30,38 @@ export const Login = (props) => {
                 "password": password
             }
 
-            fetch(registerApi, {
-                method: 'POST',
-                body: JSON.stringify(user)
-            })
-            .then((response) => {
-                if (response.status >= 200 && response.status < 300) {
-                    return response.json()
-                }
-                else {
-                    let error = new Error(response.statusText);
-                    error.response = response;
-                    throw error 
-                }
-            })
-            .then((data) => {
-                console.log(data.user);
-                deleteCookie('login')
-                setCookie('login', data.user.login, {secure: true, 'max-age': 3600})
-                deleteCookie('name')
-                setCookie('name' , data.user.name, {secure: true, 'max-age': 3600})
-                deleteCookie('password')
-                setCookie('password' , data.user.password, {secure: true, 'max-age': 3600})
-                deleteCookie('token')
-                setCookie('token' , data.user.token, {secure: true, 'max-age': 3600})
-                setBlockVisible('none')
-                deleteCookie('_id')
-                setCookie('_id' , data.user._id, {secure: true, 'max-age': 3600})
-            })
-            .catch((e) => {
-                console.log(e.response);
-            })
-        }
+            registerApi(user)
 
+            setBlockVisible(false)
+        }
     }
 
-    const Login = () => {
-        if (loginButton === 'Вернуться') {
-            setRegButton('Регистрация')
-            setLoginButton('Вход')
-            setRegInput('none')    
+    const log = () => {
+        if (loginButton === false) {
+            setRegButton(true)
+            setLoginButton(true)
+            setRegInput(false)    
         }
 
-        else if (loginButton === 'Вход') {
+        else if (loginButton === true) {
             let user = {
                 "login": login,
                 "password": password
             }
-            fetch(loginApi, {
-                method: 'POST',
-                body: JSON.stringify(user)
-            })
-            .then((response) => {
-                if (response.status >= 200 && response.status < 300) {
-                    return response.json()
-                }
-                else {
-                    let error = new Error(response.statusText)
-                    error.response = response
-                    throw error
-                }
-            })
-            .then((data) => {
-                console.log(data);
-                deleteCookie('login')
-                setCookie('login', data.user.login, {secure: true, 'max-age': 3600})
-                deleteCookie('name')
-                setCookie('name' , data.user.name, {secure: true, 'max-age': 3600})
-                deleteCookie('password')
-                setCookie('password' , data.user.password, {secure: true, 'max-age': 3600})
-                setBlockVisible('none')
-                deleteCookie('token')
-                setCookie('token' , data.user.token, {secure: true, 'max-age': 3600})
-                deleteCookie('_id')
-                setCookie('_id' , data.user._id, {secure: true, 'max-age': 3600})
-            })
-            .catch((e) => {
-                console.log(e.response)
-            })
-        }
 
+            loginApi(user)
+
+            setBlockVisible(false)
+        }
     }
 
     return (
-        <div style={{display: blockVisible}} className="login">
-            <input placeholder="login" value={login} onChange={(e) => {setLogin(e.target.value)}} type='text'/>
-            <input placeholder="password" value={password} onChange={(e) => {setPassword(e.target.value)}} type='password'/>
-            <input placeholder="name" style={{display: regInput}} value={name} onChange={(e) => {setName(e.target.value)}} type='text'/>
-            <button onClick={()=>Login()}>{loginButton}</button>
-            <button onClick={()=>Reg()}>{regButton}</button>
+        <div style={{display: blockVisible ? 'flex' : 'none'}} className="login">
+            <input placeholder={props.language === 'rus' ? 'Логин' : 'Login'} value={login} onChange={(e) => {setLogin(e.target.value)}} type='text'/>
+            <input placeholder={props.language === 'rus' ? 'Пароль' : 'Password'} value={password} onChange={(e) => {setPassword(e.target.value)}} type='password'/>
+            <input placeholder={props.language === 'rus' ? 'Имя' : 'Name'} style={{display: regInput ? 'flex' : 'none'}} value={name} onChange={(e) => {setName(e.target.value)}} type='text'/>
+            <button onClick={()=>log()}>{props.language === 'rus' ? (loginButton ? 'Войти' : 'Вернуться') : (loginButton ? 'Enter' : 'Go back')}</button>
+            <button onClick={()=>reg()}>{props.language === 'rus' ? (regButton ? 'Регистрация' : 'Зарегистрироваться') : (regButton ? 'Registration' : 'Register')}</button>
         </div>
     )
 }
