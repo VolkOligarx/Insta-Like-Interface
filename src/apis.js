@@ -1,4 +1,4 @@
-import { userInfo } from "./functions"
+import { userInfo, userInit } from "./functions"
 
 const userData = userInfo()
 
@@ -18,13 +18,8 @@ export const loginApi = (user) => {
         }
     })
     .then((data) => {
-        localStorage.clear()
 
-        localStorage.setItem('login', data.user.login)
-        localStorage.setItem('name', data.user.name)
-        localStorage.setItem('password', data.user.password)
-        localStorage.setItem('token', data.user.token)
-        localStorage.setItem('_id', data.user._id)
+        userInit(data.user.login, data.user.name, data.user.password, data.user.token, data.user._id)
 
         alert('Успешно')
     })
@@ -51,13 +46,7 @@ export const registerApi = (user) => {
         }
     })
     .then((data) => {
-        localStorage.clear()
-
-        localStorage.setItem('login', data.user.login)
-        localStorage.setItem('name', data.user.name)
-        localStorage.setItem('password', data.user.password)
-        localStorage.setItem('token', data.user.token)
-        localStorage.setItem('_id', data.user._id)
+        userInit(data.user.login, data.user.name, data.user.password, data.user.token, data.user._id)
 
         alert('Успешно')
     })
