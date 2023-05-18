@@ -1,7 +1,7 @@
 import './style.css'
 import { useEffect, useState } from 'react'
 import { loginApi, registerApi } from '../../apis'
-import { LOCALES } from '../../i18n/locales'
+import { FormattedMessage } from 'react-intl'
 
 export const Login = props => {
 	const [blockVisible, setBlockVisible] = useState(props.login)
@@ -50,49 +50,58 @@ export const Login = props => {
 
 	return (
 		<div style={{ display: blockVisible ? 'flex' : 'none' }} className='login'>
-			<input
-				placeholder={props.language === LOCALES.RUSSIAN ? 'Логин' : 'Login'}
-				value={login}
-				onChange={e => {
-					setLogin(e.target.value)
-				}}
-				type='text'
-			/>
-			<input
-				placeholder={props.language === LOCALES.RUSSIAN ? 'Пароль' : 'Password'}
-				value={password}
-				onChange={e => {
-					setPassword(e.target.value)
-				}}
-				type='password'
-			/>
-			<input
-				placeholder={props.language === LOCALES.RUSSIAN ? 'Имя' : 'Name'}
-				style={{ display: regInput ? 'flex' : 'none' }}
-				value={name}
-				onChange={e => {
-					setName(e.target.value)
-				}}
-				type='text'
-			/>
-			<button onClick={() => enter()}>
-				{props.language === LOCALES.RUSSIAN
-					? loginButton
-						? 'Войти'
-						: 'Вернуться'
-					: loginButton
-					? 'Enter'
-					: 'Go back'}
-			</button>
-			<button onClick={() => registration()}>
-				{props.language === LOCALES.RUSSIAN
-					? loginButton
-						? 'Регистрация'
-						: 'Зарегистрироваться'
-					: loginButton
-					? 'Registration'
-					: 'Register'}
-			</button>
+			<FormattedMessage id='login' defaultMessage='login'>
+				{placeholder => (
+					<input
+						placeholder={placeholder}
+						value={login}
+						onChange={e => {
+							setLogin(e.target.value)
+						}}
+						type='text'
+					/>
+				)}
+			</FormattedMessage>
+
+			<FormattedMessage id='password' defaultMessage='password'>
+				{placeholder => (
+					<input
+						placeholder={placeholder}
+						value={password}
+						onChange={e => {
+							setPassword(e.target.value)
+						}}
+						type='password'
+					/>
+				)}
+			</FormattedMessage>
+			<FormattedMessage id='name' defaultMessage='name'>
+				{placeholder => (
+					<input
+						placeholder={placeholder}
+						style={{ display: regInput ? 'flex' : 'none' }}
+						value={name}
+						onChange={e => {
+							setName(e.target.value)
+						}}
+						type='text'
+					/>
+				)}
+			</FormattedMessage>
+			<FormattedMessage
+				id={loginButton ? 'enter' : 'entered'}
+				defaultMessage='enter'
+			>
+				{placeholder => <button onClick={() => enter()}>{placeholder}</button>}
+			</FormattedMessage>
+			<FormattedMessage
+				id={loginButton ? 'registration' : 'register'}
+				defaultMessage='register'
+			>
+				{placeholder => (
+					<button onClick={() => registration()}>{placeholder}</button>
+				)}
+			</FormattedMessage>
 		</div>
 	)
 }
