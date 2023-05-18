@@ -16,7 +16,8 @@ export const messages = {
 		registration: 'Registration',
 		register: 'Register',
 		lngSwitch: 'English',
-		lngHoverSwitch: 'Switch to English'
+		lngHoverSwitch: 'Switch to English',
+		createPost: 'Create post'
 	},
 
 	[LOCALES.RUSSIAN]: {
@@ -34,6 +35,7 @@ export const messages = {
 		registration: 'Регистрация',
 		register: 'Зарегистрироваться',
 		lngSwitch: 'Русский',
-		lngHoverSwitch: 'Переключить на Русский'
+		lngHoverSwitch: 'Переключить на Русский',
+		createPost: 'Создать пост'
 	}
 }
