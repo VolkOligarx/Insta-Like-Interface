@@ -20,18 +20,27 @@ export const Header = () => {
 			<div>
 				<div className='header'>
 					<div className='button-block'>
-						<button
-							onClick={() => {
-								language === LOCALES.RUSSIAN ? setLanguage(LOCALES.ENGLISH) : setLanguage(LOCALES.RUSSIAN)
-							}}
-							text={language === LOCALES.RUSSIAN ? 'Русский' : 'English'}
-							hover-text={
-								language === LOCALES.RUSSIAN
-									? 'Switch to English'
-									: 'Переключить на Русский'
-							}
-							className='button-lng'
-						></button>
+						<FormattedMessage id='lngSwitch' defaultMessage='lngSwitch'>
+							{placeholderText => (
+								<FormattedMessage
+									id='lngHoverSwitch'
+									defaultMessage='lngHoverSwitch'
+								>
+									{placeholderHover => (
+										<button
+											onClick={() => {
+												language === LOCALES.RUSSIAN
+													? setLanguage(LOCALES.ENGLISH)
+													: setLanguage(LOCALES.RUSSIAN)
+											}}
+											text={placeholderText}
+											hover-text={placeholderHover}
+											className='button-lng'
+										></button>
+									)}
+								</FormattedMessage>
+							)}
+						</FormattedMessage>
 					</div>
 					<h1>Instapro</h1>
 					<div className='button-block'>
@@ -43,11 +52,11 @@ export const Header = () => {
 							}}
 							className='button-enter'
 						>
-							<FormattedMessage id='enterButton'/>
+							<FormattedMessage id='enterButton' />
 						</button>
 					</div>
 				</div>
-				<Login language={language} login={loginVisible}></Login>
+				<Login login={loginVisible}></Login>
 				<UserBlock language={language}></UserBlock>
 			</div>
 		</IntlProvider>
