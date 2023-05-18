@@ -1,19 +1,19 @@
 .post-text {
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
 }
 
 .post-image {
-    max-width: 75vw;
-    max-height: 50vh;
+	max-width: 75vw;
+	max-height: 50vh;
 }
 
 .like {
-    width: 2.2vw;
-    transition: all 0.5s;
+	width: 2.2vw;
+	transition: all 0.5s;
 }
 
 .like:hover {
-    transform: scale(1.1) rotate(360deg);
+	transform: scale(1.1) rotate(360deg);
 }
