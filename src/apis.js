@@ -28,7 +28,7 @@ export const loginApi = user => {
 			alert('Успешно')
 		})
 		.catch(e => {
-			console.log(e)
+			console.error(e)
 			alert('Пользователь не найден')
 		})
 }
@@ -60,7 +60,7 @@ export const registerApi = user => {
 
 		})
 		.catch(e => {
-			console.log(e)
+			console.error(e)
 			alert('Пользователь уже создан или введеные данные не корректны')
 		})
 }
@@ -85,7 +85,7 @@ export const dislike = id => {
 			console.log(data)
 		})
 		.catch(e => {
-			console.log(e)
+			console.error(e)
 		})
 }
 
@@ -109,7 +109,7 @@ export const like = id => {
 			console.log(data)
 		})
 		.catch(e => {
-			console.log(e)
+			console.error(e)
 		})
 }
 
@@ -164,6 +164,6 @@ export const sendPost = data => {
 		})
 		.catch(e => {
             alert('Ошибка на сервере')
-			console.log(e)
+			console.error(e)
 		})
 }
