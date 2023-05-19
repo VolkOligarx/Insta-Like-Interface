@@ -1,20 +1,32 @@
 import { useState } from 'react'
-import { IntlProvider, FormattedMessage } from 'react-intl'
+import { FormattedMessage, IntlProvider } from 'react-intl'
 import { sendPic, sendPost } from '../../apis'
+import { useNavigate } from "react-router-dom";
 import { LOCALES } from '../../i18n/locales'
-import { messages } from '../../i18n/messages'
-import Login from '../login/login'
 import Modal from '../modal/modal'
 import UserBlock from '../userBlock/userBlock'
 import './style.css'
+import { messages } from '../../i18n/messages';
 
-export const Header = () => {
-	const [loginVisible, setLoginVisible] = useState(false)
+export const Main = () => {
 	const [language, setLanguage] = useState(LOCALES.RUSSIAN)
 	const [modalActive, setModalActive] = useState(false)
 	const [image, setImage] = useState('')
 	const [description, setDescription] = useState('')
+	const navigate = useNavigate()
 	const locale = language
+
+
+	const lngSwitch = () => {
+		if (language === LOCALES.RUSSIAN) {
+			setLanguage(LOCALES.ENGLISH)
+			localStorage.setItem('language', LOCALES.ENGLISH)
+		}
+		else {
+			setLanguage(LOCALES.RUSSIAN)
+			localStorage.setItem('language', LOCALES.RUSSIAN)
+		}
+	}
 
 	const uploadContent = event => {
 		event.preventDefault()
@@ -46,6 +58,7 @@ export const Header = () => {
 			locale={locale}
 			defaultLocale={language}
 		>
+
 			<div>
 				<div className='header'>
 					<div className='button-block'>
@@ -58,9 +71,7 @@ export const Header = () => {
 									{placeholderHover => (
 										<button
 											onClick={() => {
-												language === LOCALES.RUSSIAN
-													? setLanguage(LOCALES.ENGLISH)
-													: setLanguage(LOCALES.RUSSIAN)
+												lngSwitch()
 											}}
 											text={placeholderText}
 											hover-text={placeholderHover}
@@ -87,18 +98,12 @@ export const Header = () => {
 					</div>
 					<div className='button-block'>
 						<button
-							onClick={() => {
-								loginVisible === false
-									? setLoginVisible(true)
-									: setLoginVisible(false)
-							}}
-							className='button-enter'
+							className='button-enter' onClick={() => {navigate('/Insta-Like-Interface/login')}}
 						>
 							<FormattedMessage id='enterButton' />
 						</button>
 					</div>
 				</div>
-				<Login login={loginVisible}></Login>
 				<UserBlock language={language}></UserBlock>
 				<Modal active={modalActive} setActive={setModalActive}>
 					<input
@@ -127,8 +132,8 @@ export const Header = () => {
 					</FormattedMessage>
 				</Modal>
 			</div>
-		</IntlProvider>
+			</IntlProvider>
 	)
 }
 
-export default Header
+export default Main

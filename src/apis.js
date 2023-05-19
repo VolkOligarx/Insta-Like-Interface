@@ -57,6 +57,7 @@ export const registerApi = user => {
 			)
 
 			alert('Успешно')
+
 		})
 		.catch(e => {
 			console.log(e)
