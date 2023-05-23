@@ -57,7 +57,6 @@ export const registerApi = user => {
 			)
 
 			alert('Успешно')
-
 		})
 		.catch(e => {
 			console.error(e)
@@ -66,12 +65,20 @@ export const registerApi = user => {
 }
 
 export const dislike = id => {
-	fetch(`https://webdev-hw-api.vercel.app/api/v1/volk/instapro/${id}/dislike`, {
-		method: 'POST',
-		headers: {
-			Authorization: `Bearer ${userData.token}`
-		}
+	const dislikeProm = new Promise((resolve, reject) => {
+		resolve(
+			fetch(
+				`https://webdev-hw-api.vercel.app/api/v1/volk/instapro/${id}/dislike`,
+				{
+					method: 'POST',
+					headers: {
+						Authorization: `Bearer ${userData.token}`
+					}
+				}
+			)
+		)
 	})
+	dislikeProm
 		.then(response => {
 			if (response.status >= 200 && response.status < 300) {
 				return response.json()
@@ -80,9 +87,6 @@ export const dislike = id => {
 				error.response = response
 				throw error
 			}
-		})
-		.then(data => {
-			console.log(data)
 		})
 		.catch(e => {
 			console.error(e)
@@ -104,9 +108,6 @@ export const like = id => {
 				error.response = response
 				throw error
 			}
-		})
-		.then(data => {
-			console.log(data)
 		})
 		.catch(e => {
 			console.error(e)
@@ -160,10 +161,10 @@ export const sendPost = data => {
 			}
 		})
 		.then(data => {
-            alert('Успешно')
+			alert('Успешно')
 		})
 		.catch(e => {
-            alert('Ошибка на сервере')
+			alert('Ошибка на сервере')
 			console.error(e)
 		})
 }

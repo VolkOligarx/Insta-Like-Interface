@@ -7,7 +7,15 @@ export const UserBlock = props => {
 	const [posts, setPosts] = useState([])
 
 	useEffect(() => {
-		setInterval(() => {
+		fetchPosts()
+		.then(data => {
+			setPosts(data.posts)
+		})
+		.catch(e => {
+			console.log(e)
+		})
+		
+		const interval = setInterval(() => {
 		fetchPosts()
 			.then(data => {
 				setPosts(data.posts)
@@ -16,6 +24,7 @@ export const UserBlock = props => {
 				console.log(e)
 			})
 		}, 10000);
+		return () => {clearInterval(interval)}
 	}, [])
 
 	return (

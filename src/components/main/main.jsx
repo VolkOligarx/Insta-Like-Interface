@@ -29,12 +29,10 @@ export const Main = () => {
 	}
 
 	const uploadContent = event => {
-		event.preventDefault()
 		event.target.files[0] ? setImage(event.target.files[0]) : alert('Вставьте изображение')
 	}
 
 	const sendImage = event => {
-		event.preventDefault()
 		const formData = new FormData()
 		formData.append('file', image)
 		setModalActive(false)

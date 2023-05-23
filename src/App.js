@@ -13,7 +13,6 @@ function App() {
 	const [language, setLanguage] = useState(LOCALES.RUSSIAN)
 	useEffect(() => {
 		setLanguage(localStorage.getItem('language'))
-		console.log(1)
 	},[])
 	const locale = language
 
