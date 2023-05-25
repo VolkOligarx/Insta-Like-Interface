@@ -4,7 +4,6 @@ export const messages = {
 	[LOCALES.ENGLISH]: {
 		description: 'Description',
 		lng: 'English',
-		hoverTextHeader: 'Switch to English',
 		enterButton: 'Enter',
 		created: 'Created',
 		likes: 'Likes',
@@ -16,14 +15,13 @@ export const messages = {
 		registration: 'Registration',
 		register: 'Register',
 		lngSwitch: 'English',
-		lngHoverSwitch: 'Switch to English',
+		lngHoverSwitch: 'Переключить на Русский',
 		createPost: 'Create post'
 	},
 
 	[LOCALES.RUSSIAN]: {
 		description: 'Описание',
 		lng: 'Русский',
-		hoverTextHeader: 'Переключить на Русский',
 		enterButton: 'Войти',
 		created: 'Создан',
 		likes: 'Лайков',
@@ -35,7 +33,7 @@ export const messages = {
 		registration: 'Регистрация',
 		register: 'Зарегистрироваться',
 		lngSwitch: 'Русский',
-		lngHoverSwitch: 'Переключить на Русский',
+		lngHoverSwitch: 'Switch to English',
 		createPost: 'Создать пост'
 	}
 }

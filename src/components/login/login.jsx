@@ -1,19 +1,19 @@
 import './style.css'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { loginApi, registerApi } from '../../apis'
-import { FormattedMessage } from 'react-intl'
+import { FormattedMessage, IntlProvider } from 'react-intl'
+import { messages } from '../../i18n/messages'
+import { useNavigate } from "react-router-dom";
 
-export const Login = props => {
-	const [blockVisible, setBlockVisible] = useState(props.login)
+export const Login = () => {
 	const [login, setLogin] = useState('')
 	const [password, setPassword] = useState('')
 	const [name, setName] = useState('')
 	const [loginButton, setLoginButton] = useState(true)
 	const [regInput, setRegInput] = useState(false)
-
-	useEffect(() => {
-		setBlockVisible(props.login)
-	}, [props.login])
+	const navigate = useNavigate()
+	const language = localStorage.getItem('language')
+	const locale = language
 
 	const registration = () => {
 		if (loginButton === true) {
@@ -27,8 +27,7 @@ export const Login = props => {
 			}
 
 			registerApi(user)
-
-			setBlockVisible(false)
+			navigate('/Insta-Like-Interface')
 		}
 	}
 
@@ -43,66 +42,75 @@ export const Login = props => {
 			}
 
 			loginApi(user)
-
-			setBlockVisible(false)
+			navigate('/Insta-Like-Interface')
 		}
 	}
 
 	return (
-		<div style={{ display: blockVisible ? 'flex' : 'none' }} className='login'>
-			<FormattedMessage id='login' defaultMessage='login'>
-				{placeholder => (
-					<input
-						placeholder={placeholder}
-						value={login}
-						onChange={e => {
-							setLogin(e.target.value)
-						}}
-						type='text'
-					/>
-				)}
-			</FormattedMessage>
+		<IntlProvider
+			messages={messages[locale]}
+			locale={locale}
+			defaultLocale={language}
+		>
+			<div className='login'>
+				<div className='login-block'>
+				<FormattedMessage id='login' defaultMessage='login'>
+					{placeholder => (
+						<input
+							placeholder={placeholder}
+							value={login}
+							onChange={e => {
+								setLogin(e.target.value)
+							}}
+							type='text'
+						/>
+					)}
+				</FormattedMessage>
 
-			<FormattedMessage id='password' defaultMessage='password'>
-				{placeholder => (
-					<input
-						placeholder={placeholder}
-						value={password}
-						onChange={e => {
-							setPassword(e.target.value)
-						}}
-						type='password'
-					/>
-				)}
-			</FormattedMessage>
-			<FormattedMessage id='name' defaultMessage='name'>
-				{placeholder => (
-					<input
-						placeholder={placeholder}
-						style={{ display: regInput ? 'flex' : 'none' }}
-						value={name}
-						onChange={e => {
-							setName(e.target.value)
-						}}
-						type='text'
-					/>
-				)}
-			</FormattedMessage>
-			<FormattedMessage
-				id={loginButton ? 'enter' : 'entered'}
-				defaultMessage='enter'
-			>
-				{placeholder => <button onClick={() => enter()}>{placeholder}</button>}
-			</FormattedMessage>
-			<FormattedMessage
-				id={loginButton ? 'registration' : 'register'}
-				defaultMessage='register'
-			>
-				{placeholder => (
-					<button onClick={() => registration()}>{placeholder}</button>
-				)}
-			</FormattedMessage>
-		</div>
+				<FormattedMessage id='password' defaultMessage='password'>
+					{placeholder => (
+						<input
+							placeholder={placeholder}
+							value={password}
+							onChange={e => {
+								setPassword(e.target.value)
+							}}
+							type='password'
+						/>
+					)}
+				</FormattedMessage>
+				<FormattedMessage id='name' defaultMessage='name'>
+					{placeholder => (
+						<input
+							placeholder={placeholder}
+							style={{ display: regInput ? 'flex' : 'none' }}
+							value={name}
+							onChange={e => {
+								setName(e.target.value)
+							}}
+							type='text'
+						/>
+					)}
+				</FormattedMessage>
+				<FormattedMessage
+					id={loginButton ? 'enter' : 'entered'}
+					defaultMessage='enter'
+				>
+					{placeholder => (
+						<button onClick={() => enter()}>{placeholder}</button>
+					)}
+				</FormattedMessage>
+				<FormattedMessage
+					id={loginButton ? 'registration' : 'register'}
+					defaultMessage='register'
+				>
+					{placeholder => (
+						<button onClick={() => registration()}>{placeholder}</button>
+					)}
+				</FormattedMessage>
+			</div>
+			</div>
+		</IntlProvider>
 	)
 }
 
