@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/Insta-Like-Interface/static/css/main.69376f24.css",
-    "main.js": "/Insta-Like-Interface/static/js/main.f47adc68.js",
+    "main.css": "/Insta-Like-Interface/static/css/main.02e61eb4.css",
+    "main.js": "/Insta-Like-Interface/static/js/main.21affb38.js",
     "index.html": "/Insta-Like-Interface/index.html",
-    "main.69376f24.css.map": "/Insta-Like-Interface/static/css/main.69376f24.css.map",
-    "main.f47adc68.js.map": "/Insta-Like-Interface/static/js/main.f47adc68.js.map"
+    "main.02e61eb4.css.map": "/Insta-Like-Interface/static/css/main.02e61eb4.css.map",
+    "main.21affb38.js.map": "/Insta-Like-Interface/static/js/main.21affb38.js.map"
   },
   "entrypoints": [
-    "static/css/main.69376f24.css",
-    "static/js/main.f47adc68.js"
+    "static/css/main.02e61eb4.css",
+    "static/js/main.21affb38.js"
   ]
 }
