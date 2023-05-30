@@ -12,7 +12,12 @@
 }
 
 .header-h1 {
-    font-size: 3em;
+	transition: all 1s;
+	font-size: 3em;
+}
+
+.header-h1:hover {
+	transform: scale(1.05);
 }
 
 .button-block {
@@ -23,6 +28,7 @@
 	border: none;
 	transition: all 0.5s;
 	font-size: 1.5em;
+	font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
 .button-lng::before {
@@ -42,6 +48,7 @@
 	border: none;
 	transition: all 0.5s;
 	font-size: 1.5em;
+	font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
 .button-enter:hover {
@@ -67,6 +74,7 @@
 	transition: 0.7s;
 	align-items: center;
 	justify-content: center;
+	font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
 .post-button:hover {
@@ -97,7 +105,7 @@
 
 .modal-file-fake {
 	height: 4.5vh;
-	width: calc(100% - 130px);
+	width: calc(100% - 50px);
 	display: -webkit-box;
 	display: -ms-flexbox;
 	display: flex;
@@ -113,10 +121,11 @@
 .modal-file-button {
 	width: 14vw;
 	height: 4.5vh;
-	background: rgb(180, 118, 3);
-	color: #fff;
+	background: rgb(127, 209, 34);
+	color: #000000;
 	font-size: 1.125rem;
-	font-weight: 300;
+	font-weight: 400;
+	font-family: Georgia, 'Times New Roman', Times, serif;
 	display: -webkit-box;
 	display: -ms-flexbox;
 	display: flex;
@@ -128,20 +137,20 @@
 	justify-content: center;
 	border-radius: 0 3px 3px 0;
 	cursor: pointer;
-	font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 .modal-block {
     display: flex;
-    gap: 1vw;
     width: 100%;
 }
 
 .modal-button {
 	width: 14vw;
-	height: 3vh;
-	background: rgb(180, 118, 3);
-	color: #fff;
+	height: 4.5vh;
+	border: none;
+	background: rgb(127, 209, 34);
+	font-family: Georgia, 'Times New Roman', Times, serif;
+	color: #000000;
 	font-size: 0.97rem;
 	font-weight: 600;
 	display: -webkit-box;
@@ -159,9 +168,10 @@
 
 .modal-description {
     width: 100%;
-    font-size: 0.9rem;
+    font-size: 1.2rem;
+	padding-left: 15px;
 }
 
 .modal-description::placeholder {
-	font-size: 0.8rem;
+	font-size: 1rem;
 }

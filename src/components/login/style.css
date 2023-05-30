@@ -1,21 +1,134 @@
 .login {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 	justify-content: center;
-    height: 100vh;
+	height: 100vh;
 	width: 100vw;
-    gap: 0.5vh;
-    margin-bottom: 10px;
-    position: fixed;
+	gap: 0.5vh;
+	margin-bottom: 10px;
+	position: fixed;
 	top: 0;
 	left: 0;
 }
 
 .login-block {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.5vh;
-    margin-bottom: 10px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 0.5vh;
+	height: 20vh;
+}
+
+.login-h1 {
+	transition: all 1s;
+	font-size: 3em;
+}
+
+.login-h1:hover {
+	transform: scale(1.05);
+}
+
+.login-input {
+	width: 16vw;
+	max-width: 300px;
+	min-height: 23px;
+	height: 2vh;
+	animation: blink-2 2s infinite both;
+	padding-left: 25px;
+	padding-right: 25px;
+    font-size: 1em;
+}
+
+.login-input::placeholder {
+	display: flex;
+	text-align: center;
+    font-size: 1em;
+}
+
+.login-input:first-child {
+	animation: blink-2 1.5s infinite both;
+}
+
+.login-input:last-child {
+	animation: blink-2 2.5s infinite both;
+}
+
+.login-input:focus {
+	animation: none;
+	border: none;
+	background-color: rgb(127, 209, 34, 0.2);
+}
+
+.login-button {
+	text-decoration: none;
+    border: none;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: rgb(0, 0, 0);
+	box-shadow: 0 0 0 3px rgb(127, 209, 34, 0.3);
+	padding: 20px 0px;
+	width: 22vw;
+	height: 4vh;
+	max-height: 25px;
+	max-width: 350px;
+	text-align: center;
+	text-transform: uppercase;
+	letter-spacing: 2px;
+	position: relative;
+	overflow: hidden;
+    border-radius: 45px;
+    margin: 5px;
+}
+
+.login-button span {
+	font-family: 'Montserrat', sans-serif;
+	position: relative;
+	z-index: 5;
+}
+
+.login-button:before,
+.login-button:after {
+	content: '';
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	left: 0;
+    margin: -0.3px;
+}
+.login-button:before {
+	transform: translateX(-100%);
+	background: rgb(95, 93, 93);
+	transition: transform 0.3s cubic-bezier(0.55, 0.055, 0.675, 0.19);
+}
+.login-button:after {
+	background: rgb(127, 209, 34);
+	transform: translateX(100%);
+	transition: transform 0.3s cubic-bezier(0.16, 0.73, 0.58, 0.62) 0.3s;
+}
+.login-button:hover:before,
+.login-button:hover:after {
+	transform: translateX(0);
+}
+
+@keyframes blink-2 {
+	0% {
+		opacity: 1;
+		transform: rotate(0deg) scale(1.03);
+	}
+	25% {
+		opacity: 0.5;
+		transform: rotate(0.8deg);
+	}
+	75% {
+		opacity: 0.5;
+		transform: rotate(-0.8deg);
+	}
+	100% {
+		opacity: 1;
+		transform: rotate(0deg) scale(1.03);
+	}
 }

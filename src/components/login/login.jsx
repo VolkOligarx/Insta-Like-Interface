@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { loginApi, registerApi } from '../../apis'
 import { FormattedMessage, IntlProvider } from 'react-intl'
 import { messages } from '../../i18n/messages'
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom'
 
 export const Login = () => {
 	const [login, setLogin] = useState('')
@@ -53,62 +53,74 @@ export const Login = () => {
 			defaultLocale={language}
 		>
 			<div className='login'>
-				<div className='login-block'>
-				<FormattedMessage id='login' defaultMessage='login'>
-					{placeholder => (
-						<input
-							placeholder={placeholder}
-							value={login}
-							onChange={e => {
-								setLogin(e.target.value)
-							}}
-							type='text'
-						/>
-					)}
-				</FormattedMessage>
+				<h1
+					onClick={() => {
+						navigate('/Insta-Like-Interface/')
+					}}
+					className='login-h1'
+				>
+					Ｉｎｓｔａｐｒｏ
+				</h1>
 
-				<FormattedMessage id='password' defaultMessage='password'>
-					{placeholder => (
-						<input
-							placeholder={placeholder}
-							value={password}
-							onChange={e => {
-								setPassword(e.target.value)
-							}}
-							type='password'
-						/>
-					)}
-				</FormattedMessage>
-				<FormattedMessage id='name' defaultMessage='name'>
-					{placeholder => (
-						<input
-							placeholder={placeholder}
-							style={{ display: regInput ? 'flex' : 'none' }}
-							value={name}
-							onChange={e => {
-								setName(e.target.value)
-							}}
-							type='text'
-						/>
-					)}
-				</FormattedMessage>
-				<FormattedMessage
-					id={loginButton ? 'enter' : 'entered'}
-					defaultMessage='enter'
-				>
-					{placeholder => (
-						<button onClick={() => enter()}>{placeholder}</button>
-					)}
-				</FormattedMessage>
-				<FormattedMessage
-					id={loginButton ? 'registration' : 'register'}
-					defaultMessage='register'
-				>
-					{placeholder => (
-						<button onClick={() => registration()}>{placeholder}</button>
-					)}
-				</FormattedMessage>
-			</div>
+				<div className='login-block'>
+					<FormattedMessage id='login' defaultMessage='login'>
+						{placeholder => (
+							<input
+								placeholder={placeholder}
+								value={login}
+								onChange={e => {
+									setLogin(e.target.value)
+								}}
+								type='text'
+								className='login-input'
+							/>
+						)}
+					</FormattedMessage>
+
+					<FormattedMessage id='password' defaultMessage='password'>
+						{placeholder => (
+							<input
+								placeholder={placeholder}
+								value={password}
+								onChange={e => {
+									setPassword(e.target.value)
+								}}
+								type='password'
+								className='login-input'
+							/>
+						)}
+					</FormattedMessage>
+					<FormattedMessage id='name' defaultMessage='name'>
+						{placeholder => (
+							<input
+								placeholder={placeholder}
+								style={{ display: regInput ? 'flex' : 'none' }}
+								value={name}
+								onChange={e => {
+									setName(e.target.value)
+								}}
+								type='text'
+								className='login-input'
+							/>
+						)}
+					</FormattedMessage>
+					<FormattedMessage
+						id={loginButton ? 'enter' : 'entered'}
+						defaultMessage='enter'
+					>
+						{placeholder => (
+							<button style={{marginTop: '20px'}} className='login-button' onClick={() => enter()}><span>{placeholder}</span></button>
+						)}
+					</FormattedMessage>
+					<FormattedMessage
+						id={loginButton ? 'registration' : 'register'}
+						defaultMessage='register'
+					>
+						{placeholder => (
+							<button className='login-button' onClick={() => registration()}><span>{placeholder}</span></button>
+						)}
+					</FormattedMessage>
+				</div>
 			</div>
 		</IntlProvider>
 	)
