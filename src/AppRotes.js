@@ -1,7 +1,6 @@
 import { Route, Routes } from "react-router-dom"
-import UserBlock from "./components/userBlock/userBlock"
-import { LoginPage } from "./pages/loginPage"
-import { MainPage } from "./pages/mainPage"
+import Login from "./components/login/login"
+import Main from "./components/main/main"
 
 export const AppRoutes = () => {
     const basic = '/Insta-Like-Interface'
@@ -10,9 +9,8 @@ export const AppRoutes = () => {
     return (
 
     <Routes>
-        <Route path={`${basic}`} element={<MainPage />} />
-        <Route path={`${basic}/login`} element={<LoginPage />} />
-        <Route path={`${basic}/block`} element={<UserBlock />} />
+        <Route path={`${basic}`} element={<Main />} />
+        <Route path={`${basic}/login`} element={<Login />} />
     </Routes>
     )
 }

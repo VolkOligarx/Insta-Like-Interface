@@ -27,7 +27,7 @@ export const Login = () => {
 			}
 
 			registerApi(user)
-			navigate('/Insta-Like-Interface')
+			navigate('/Insta-Like-Interface/')
 		}
 	}
 
@@ -42,7 +42,7 @@ export const Login = () => {
 			}
 
 			loginApi(user)
-			navigate('/Insta-Like-Interface')
+			navigate('/Insta-Like-Interface/')
 		}
 	}
 

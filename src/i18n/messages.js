@@ -16,7 +16,9 @@ export const messages = {
 		register: 'Register',
 		lngSwitch: 'English',
 		lngHoverSwitch: 'Переключить на Русский',
-		createPost: 'Create post'
+		createPost: 'Create post',
+		postDescription: 'Type description (max 100 letters)',
+		choose: 'Choose'
 	},
 
 	[LOCALES.RUSSIAN]: {
@@ -34,6 +36,8 @@ export const messages = {
 		register: 'Зарегистрироваться',
 		lngSwitch: 'Русский',
 		lngHoverSwitch: 'Switch to English',
-		createPost: 'Создать пост'
+		createPost: 'Создать пост',
+		postDescription: 'Введите описание (макс 100 символов)',
+		choose: 'Выбрать'
 	}
 }
