@@ -120,6 +120,20 @@ export const fetchPosts = () => {
 	)
 }
 
+export const fetchAuthorsPosts = (id) => {
+	return fetch(`https://webdev-hw-api.vercel.app/api/v1/prod/instapro/user-posts/${id}`).then(
+		response => {
+			if (response.status >= 200 && response.status < 300) {
+				return response.json()
+			} else {
+				let error = new Error(response.statusText)
+				error.response = response
+				throw error
+			}
+		}
+	)
+}
+
 export const sendPic = formData => {
 	return fetch('https://webdev-hw-api.vercel.app/api/upload/image', {
 		method: 'POST',
