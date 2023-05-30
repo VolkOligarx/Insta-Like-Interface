@@ -3,8 +3,13 @@ import { fetchPosts } from '../../apis'
 import UserContent from '../userContent/userContent'
 import './style.css'
 
-export const UserBlock = props => {
+export const UserBlock = () => {
 	const [posts, setPosts] = useState([])
+	const images = {
+		like: './img/like.png',
+		dislike: './img/liked.png',
+		avatar: './img/avatar.png'
+	}
 
 	useEffect(() => {
 		fetchPosts()
@@ -34,13 +39,14 @@ export const UserBlock = props => {
 
 				return (
 					<UserContent
-						language={props.language}
 						key={post.id}
 						created={created}
 						id={post.id}
 						imageUrl={post.imageUrl}
 						description={post.description}
 						likes={post.likes}
+						user={post.user}
+						images={images}
 					></UserContent>
 				)
 			})}

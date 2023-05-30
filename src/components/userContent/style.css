@@ -17,3 +17,29 @@
 .like:hover {
 	transform: scale(1.1) rotate(360deg);
 }
+
+.post-author-block {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+}
+
+.post-author {
+	display: flex;
+	gap: 1vw;
+	align-items: center;
+}
+
+.post-author-name-block {
+	display: flex;
+	gap: 0.5vw;
+}
+
+.post-author-login {
+	opacity: 0.5;
+}
+
+.post-author-img {
+	max-width: 3vw;
+	max-height: 2.5vh;
+}

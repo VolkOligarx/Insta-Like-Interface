@@ -4,7 +4,6 @@ import { sendPic, sendPost } from '../../apis'
 import { useNavigate } from "react-router-dom";
 import { LOCALES } from '../../i18n/locales'
 import Modal from '../modal/modal'
-import UserBlock from '../userBlock/userBlock'
 import './style.css'
 import { messages } from '../../i18n/messages';
 
@@ -102,7 +101,6 @@ export const Main = () => {
 						</button>
 					</div>
 				</div>
-				<UserBlock language={language}></UserBlock>
 				<Modal active={modalActive} setActive={setModalActive}>
 					<input
 						onChange={e => {
