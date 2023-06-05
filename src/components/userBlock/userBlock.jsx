@@ -59,7 +59,7 @@ export const UserBlock = ({ reload, setButtonAnimation, language }) => {
 
 					else if (Number(post.createdAt.split('').splice(11, 2).join('')) === now[2]-1) {
 						if (now[3] + 60 - Number(post.createdAt.split('').splice(14, 2).join('')) <= 59) {
-							created = `${now[3] - Number(post.createdAt.split('').splice(14, 2).join(''))} ${language ? 'мин назад' : 'minutes ago'}`;
+							created = `${now[3] + 60 - Number(post.createdAt.split('').splice(14, 2).join(''))} ${language ? 'мин назад' : 'minutes ago'}`;
 						}
 						else {
 							created = language ? 'более часа назад' : 'more then hour ago'
