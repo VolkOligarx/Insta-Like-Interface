@@ -18,7 +18,11 @@ export const messages = {
 		lngHoverSwitch: 'Переключить на Русский',
 		createPost: 'Create post',
 		postDescription: 'Type description (max 100 letters)',
-		choose: 'Choose'
+		choose: 'Choose',
+		authorize: 'To place likes please authorize using "Enter" button on the upper right part of your screen',
+		exitButton: 'Exit',
+		chooseFile: 'No chosen files',
+		choosenFile: '1 chosen file'
 	},
 
 	[LOCALES.RUSSIAN]: {
@@ -38,6 +42,10 @@ export const messages = {
 		lngHoverSwitch: 'Switch to English',
 		createPost: 'Создать пост',
 		postDescription: 'Введите описание (макс 100 символов)',
-		choose: 'Выбрать'
+		choose: 'Выбрать',
+		authorize: 'Чтобы ставить лайки - авторизуйтесь с помощью кнопки "Войти" в правом верхнем углу экрана',
+		exitButton: 'Выйти',
+		chooseFile: 'Файл не выбран',
+		choosenFile: 'Выбран 1 файл'
 	}
 }

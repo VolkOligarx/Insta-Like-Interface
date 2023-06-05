@@ -1,70 +1,7 @@
-import { userInfo, userInit } from './functions'
-
-const userData = userInfo()
-
-export const loginApi = user => {
-	fetch('https://webdev-hw-api.vercel.app/api/user/login', {
-		method: 'POST',
-		body: JSON.stringify(user)
-	})
-		.then(response => {
-			if (response.status >= 200 && response.status < 300) {
-				return response.json()
-			} else {
-				let error = new Error(response.statusText)
-				error.response = response
-				throw error
-			}
-		})
-		.then(data => {
-			userInit(
-				data.user.login,
-				data.user.name,
-				data.user.password,
-				data.user.token,
-				data.user._id
-			)
-
-			alert('Успешно')
-		})
-		.catch(e => {
-			console.error(e)
-			alert('Пользователь не найден')
-		})
-}
-
-export const registerApi = user => {
-	fetch('https://webdev-hw-api.vercel.app/api/user', {
-		method: 'POST',
-		body: JSON.stringify(user)
-	})
-		.then(response => {
-			if (response.status >= 200 && response.status < 300) {
-				return response.json()
-			} else {
-				let error = new Error(response.statusText)
-				error.response = response
-				throw error
-			}
-		})
-		.then(data => {
-			userInit(
-				data.user.login,
-				data.user.name,
-				data.user.password,
-				data.user.token,
-				data.user._id
-			)
-
-			alert('Успешно')
-		})
-		.catch(e => {
-			console.error(e)
-			alert('Пользователь уже создан или введеные данные не корректны')
-		})
-}
+import { userInfo } from './functions'
 
 export const dislike = id => {
+	const userData = userInfo()
 	fetch(`https://webdev-hw-api.vercel.app/api/v1/volk/instapro/${id}/dislike`, {
 		method: 'POST',
 		headers: {
@@ -80,12 +17,13 @@ export const dislike = id => {
 				throw error
 			}
 		})
-		.catch(e => {
-			console.error(e)
+		.catch(error => {
+			console.error(error)
 		})
 }
 
 export const like = id => {
+	const userData = userInfo()
 	fetch(`https://webdev-hw-api.vercel.app/api/v1/volk/instapro/${id}/like`, {
 		method: 'POST',
 		headers: {
@@ -101,8 +39,8 @@ export const like = id => {
 				throw error
 			}
 		})
-		.catch(e => {
-			console.error(e)
+		.catch(error => {
+			console.error(error)
 		})
 }
 
@@ -150,6 +88,7 @@ export const sendPic = formData => {
 }
 
 export const sendPost = data => {
+	const userData = userInfo()
 	fetch('https://webdev-hw-api.vercel.app/api/v1/prod/instapro', {
 		method: 'POST',
 		body: JSON.stringify(data),
@@ -166,11 +105,7 @@ export const sendPost = data => {
 				throw error
 			}
 		})
-		.then(data => {
-			alert('Успешно')
-		})
-		.catch(e => {
-			alert('Ошибка на сервере')
-			console.error(e)
+		.catch(error => {
+			console.error(error)
 		})
 }
