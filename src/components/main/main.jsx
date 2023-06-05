@@ -1,34 +1,35 @@
 import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { FormattedMessage, IntlProvider } from 'react-intl'
 import { sendPic, sendPost } from '../../apis'
-import { useNavigate } from 'react-router-dom'
 import { LOCALES } from '../../i18n/locales'
 import Modal from '../modal/modal'
 import './style.css'
 import { messages } from '../../i18n/messages'
 import UserBlock from '../userBlock/userBlock'
+import { userInfo } from '../../functions'
+import Login from '../login/login'
 
 export const Main = () => {
 	const [language, setLanguage] = useState(LOCALES.RUSSIAN)
-	const [modalActive, setModalActive] = useState(false)
+	const [modalActivePost, setModalActivePost] = useState(false)
+	const [modalActiveLogin, setModalActiveLogin] = useState(false)
 	const [image, setImage] = useState('')
 	const [description, setDescription] = useState('')
-	const [filePlaceholder, setFilePlaceholder] = useState('Файл не выбран')
+	const [buttonAnimation, setButtonAnimation] = useState(false)
+	const [inputAnimation, setInputAnimation] = useState(false)
+	const [sendAnimation, setSendAnimation] = useState(false)
+	const [createPost, setCreatePost] = useState(false)
+	const [unlogin, setUnlogin] = useState(false)
+	const [user, setUser] = useState(userInfo())
 	const [reload, setReload] = useState(true)
 	const navigate = useNavigate()
 	const locale = language
 
 	useEffect(() => {
-		if (language === LOCALES.RUSSIAN) {
-			image
-				? setFilePlaceholder('Выбран 1 файл')
-				: setFilePlaceholder('Файл не выбран')
-		} else {
-			image
-				? setFilePlaceholder('1 chosen file')
-				: setFilePlaceholder('No chosen files')
-		}
-	}, [image, language])
+		user.token ? setCreatePost(true) : setCreatePost(false)
+		user.token ? setUnlogin(true) : setUnlogin(false)
+	}, [image, user.token])
 
 	const lngSwitch = () => {
 		if (language === LOCALES.RUSSIAN) {
@@ -41,15 +42,19 @@ export const Main = () => {
 	}
 
 	const uploadContent = event => {
-		event.target.files[0]
-			? setImage(event.target.files[0])
-			: alert('Вставьте изображение')
+		if (event.target.files[0]) {
+			setImage(event.target.files[0])
+		} else {
+			setSendAnimation(true)
+			return setTimeout(() => {
+				setSendAnimation(false)
+			}, 3000)
+		}
 	}
 
-	const sendImage = event => {
+	const sendImage = () => {
 		const formData = new FormData()
 		formData.append('file', image)
-		setModalActive(false)
 
 		sendPic(formData)
 			.then(data => {
@@ -57,14 +62,23 @@ export const Main = () => {
 					description: description,
 					imageUrl: data.fileUrl
 				}
-				sendPost(postInput)
-				setTimeout(() => {
-					reload ? setReload(false) : setReload(true)
-				}, 3000);
+				if (description) {
+					sendPost(postInput)
+					setTimeout(() => {
+						reload ? setReload(false) : setReload(true)
+						navigate('/')
+						navigate('/Insta-Like-Interface/')
+					}, 3000)
+					setModalActivePost(false)
+				} else {
+					setInputAnimation(true)
+					setTimeout(() => {
+						setInputAnimation(false)
+					}, 3000)
+				}
 			})
-			.catch(e => {
-				console.log(e)
-				alert('Неправильно выбрана картинка или не выбрана вовсе')
+			.catch(error => {
+				console.log(error)
 			})
 	}
 
@@ -101,6 +115,8 @@ export const Main = () => {
 						<h1
 							onClick={() => {
 								reload ? setReload(false) : setReload(true)
+								navigate('/')
+								navigate('/Insta-Like-Interface/')
 							}}
 							className='header-h1'
 						>
@@ -109,9 +125,10 @@ export const Main = () => {
 						<FormattedMessage id='createPost' defaultMessage='createPost'>
 							{placeholder => (
 								<button
+									style={{ display: createPost ? 'flex' : 'none' }}
 									className='post-button'
 									onClick={() => {
-										setModalActive(true)
+										setModalActivePost(true)
 									}}
 								>
 									{placeholder}
@@ -121,30 +138,53 @@ export const Main = () => {
 					</div>
 					<div className='button-block'>
 						<button
+							style={{
+								animation: buttonAnimation
+									? 'heartbeat 1s ease-in-out 3 both'
+									: 'none'
+							}}
 							className='button-enter'
 							onClick={() => {
-								navigate('/Insta-Like-Interface/login')
+								if (user.token) {
+									localStorage.clear()
+									setCreatePost(false)
+									setUnlogin(false)
+									setUser(userInfo())
+									window.location.reload()
+								} else {
+									setModalActiveLogin(true)
+								}
 							}}
 						>
-							<FormattedMessage id='enterButton' />
+							<FormattedMessage
+								id={unlogin ? 'exitButton' : 'enterButton'}
+								defaultMessage='enterButton'
+							/>
 						</button>
 					</div>
 				</div>
-				<Modal active={modalActive} setActive={setModalActive}>
+				<Modal active={modalActivePost} setActive={setModalActivePost}>
 					<div className='modal-wrapper'>
 						<input
+							style={{
+								animation: sendAnimation
+									? 'heartbeat 1.5s ease-in-out 2 both'
+									: 'none'
+							}}
 							name='file'
 							type='file'
 							id='modal-file-2'
 							className='modal-file'
-							onChange={e => {
-								uploadContent(e)
+							onChange={event => {
+								uploadContent(event)
 							}}
 							multiple
 						/>
 
 						<label className='modal-file-wrapper' htmlFor='modal-file-2'>
-							<div className='modal-file-fake'>{filePlaceholder}</div>
+						<FormattedMessage id={image ? 'choosenFile' : 'chooseFile'} defaultMessage='createPost'>
+						{placeholder => <div className='modal-file-fake'>{placeholder}</div>}
+					</FormattedMessage>
 							<FormattedMessage id='choose' defaultMessage='createPost'>
 								{placeholder => (
 									<div className='modal-file-button'>{placeholder}</div>
@@ -152,13 +192,20 @@ export const Main = () => {
 							</FormattedMessage>
 						</label>
 					</div>
-					<div className='modal-block'>
+					<div
+						style={{
+							animation: inputAnimation
+								? 'heartbeat 1.5s ease-in-out 2 both'
+								: 'none'
+						}}
+						className='modal-block'
+					>
 						<FormattedMessage id='postDescription' defaultMessage='createPost'>
 							{placeholder => (
 								<input
 									value={description}
-									onChange={e => {
-										setDescription(e.target.value)
+									onChange={event => {
+										setDescription(event.target.value)
 									}}
 									type='text'
 									placeholder={placeholder}
@@ -172,8 +219,8 @@ export const Main = () => {
 							{placeholder => (
 								<button
 									className='modal-button'
-									onClick={e => {
-										sendImage(e)
+									onClick={event => {
+										sendImage(event)
 									}}
 								>
 									{placeholder}
@@ -182,8 +229,21 @@ export const Main = () => {
 						</FormattedMessage>
 					</div>
 				</Modal>
+				<Modal active={modalActiveLogin} setActive={setModalActiveLogin}>
+					<div className='modal-wrapper'>
+						<Login
+							setCreatePost={setCreatePost}
+							setActive={setModalActiveLogin}
+							setUnlogin={setUnlogin}
+						></Login>
+					</div>
+				</Modal>
 			</div>
-			<UserBlock reload={reload}></UserBlock>
+			<UserBlock
+				setButtonAnimation={setButtonAnimation}
+				reload={reload}
+				language={language === LOCALES.RUSSIAN ? true : false}
+			></UserBlock>
 		</IntlProvider>
 	)
 }

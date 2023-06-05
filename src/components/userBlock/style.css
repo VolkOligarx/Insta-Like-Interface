@@ -4,11 +4,10 @@
 }
 
 .post {
-	background-color: rgba(128, 128, 128, 0.150);
+	background-color: rgba(128, 128, 128, 0.15);
 	margin-bottom: 7vh;
 	margin-left: 6vw;
 	margin-right: 6vw;
-
 }
 
 .post-wrapper {
@@ -61,6 +60,12 @@
 	display: flex;
 	gap: 1vw;
 	align-items: center;
+	transition: all 0.3s;
+}
+
+.post-author:hover {
+	transform: scale(1.015);
+	background-color: rgb(127, 209, 34);
 }
 
 .post-author-name-block {
@@ -86,4 +91,8 @@
 
 .post-description {
 	max-width: 180px;
+}
+
+.modal-h1 {
+	padding: 20px;
 }

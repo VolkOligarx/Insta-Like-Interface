@@ -5,7 +5,7 @@ import { FormattedMessage } from 'react-intl'
 import { Likes } from '../likes/likes'
 import './style.css'
 
-export const UserBlock = props => {
+export const UserBlock = ({ reload, setButtonAnimation, language }) => {
 	const [posts, setPosts] = useState([])
 
 	const images = {
@@ -19,8 +19,8 @@ export const UserBlock = props => {
 			.then(data => {
 				setPosts(data.posts)
 			})
-			.catch(e => {
-				console.log(e)
+			.catch(error => {
+				console.log(error)
 			})
 
 		const interval = setInterval(() => {
@@ -28,19 +28,66 @@ export const UserBlock = props => {
 				.then(data => {
 					setPosts(data.posts)
 				})
-				.catch(e => {
-					console.log(e)
+				.catch(error => {
+					console.log(error)
 				})
 		}, 60000)
 		return () => {
 			clearInterval(interval)
 		}
-	}, [props.reload])
+	}, [reload])
 
 	return (
 		<div className='main'>
 			{posts.map(post => {
-				const created = post.createdAt.split('').splice(0, 10).join('')
+				var today = new Date()
+
+				var now = [
+					Number(today.getUTCMonth().toLocaleString('ru')) + 1,
+					Number(today.getUTCDate().toLocaleString('ru')),
+					Number(today.getUTCHours().toLocaleString('ru')),
+					Number(today.getUTCMinutes().toLocaleString('ru'))
+				]
+				const createdOld = post.createdAt.split('').splice(0, 10).join('')
+
+				let created
+
+				if (Number(post.createdAt.split('').splice(8, 2).join('')) === now[1]) {
+					if (Number(post.createdAt.split('').splice(11, 2).join('')) === now[2]) {
+						created = `${now[3] - Number(post.createdAt.split('').splice(14, 2).join(''))} ${language ? 'мин назад' : 'minutes ago'}`;
+					}
+
+					else if (Number(post.createdAt.split('').splice(11, 2).join('')) === now[2]-1) {
+						if (now[3] + 60 - Number(post.createdAt.split('').splice(14, 2).join('')) <= 59) {
+							created = `${now[3] - Number(post.createdAt.split('').splice(14, 2).join(''))} ${language ? 'мин назад' : 'minutes ago'}`;
+						}
+						else {
+							created = language ? 'более часа назад' : 'more then hour ago'
+						}
+					}
+					
+					else {
+						let hour
+						let createdHour = now[2] - Number(post.createdAt.split('').splice(11, 2).join(''))
+						if (createdHour <= 0) {
+							createdHour = now[2] - Number(post.createdAt.split('').splice(11, 2).join('')) + 12
+						}
+						if (createdHour === 1 || createdHour === 21) {
+							hour = language ? 'час' : 'hour'
+						}
+						else if (createdHour === 2 || createdHour === 3 || createdHour === 4 || createdHour === 22 || createdHour === 23) {
+							hour = language ? 'часа' : 'hours'
+						}
+						else {
+							hour = language ? 'часов' : 'hours'
+						}
+						created = `${createdHour} ${hour} ${language ? 'назад' : 'ago'}`
+					}
+				}
+
+				else {
+					created = createdOld
+				}
 
 				const changeAuthor = () => {
 					fetchAuthorsPosts(post.user.id)
@@ -51,7 +98,6 @@ export const UserBlock = props => {
 							console.log(e)
 						})
 				}
-
 				return (
 					<div className='post' key={post.id}>
 						<div className='post-wrapper'>
@@ -83,17 +129,23 @@ export const UserBlock = props => {
 										</div>
 									</div>
 									<p style={{ margin: '0' }}>
-										<FormattedMessage id='created' /> {created}
+										<FormattedMessage id='created' defaultMessage='created' />{' '}
+										{created}
 									</p>
 								</div>
 								<p className='post-description'>
-									<FormattedMessage id='description' /> {post.description}
+									<FormattedMessage
+										id='description'
+										defaultMessage='description'
+									/>{' '}
+									{post.description}
 								</p>
 								<div className='post-like-block'>
 									<Likes
 										likes={post.likes.length}
 										post={post}
 										images={images}
+										setButtonAnimation={setButtonAnimation}
 									></Likes>
 								</div>
 							</div>
