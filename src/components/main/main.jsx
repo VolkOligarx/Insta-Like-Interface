@@ -114,6 +114,7 @@ export const Main = () => {
 					<div className='header-block'>
 						<h1
 							onClick={() => {
+								localStorage.removeItem('posts')
 								reload ? setReload(false) : setReload(true)
 								navigate('/')
 								navigate('/Insta-Like-Interface/')
